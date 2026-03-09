@@ -1,4 +1,4 @@
-App concept
+App concept.
 
 Deze taaltrainer-app is gemaakt voor mensen die op een makkelijke en gestructureerde manier een nieuwe taal willen leren. De app richt zich vooral op beginners en drukke volwassenen die weinig tijd hebben, maar toch dagelijks willen oefenen. Met korte lessen, duidelijke uitleg en directe feedback kunnen zij stap voor stap vooruitgang boeken.
 
