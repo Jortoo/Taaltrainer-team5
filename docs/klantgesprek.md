@@ -1,73 +1,72 @@
-Een taaltrainer app voor kinderen tussen de 7 en 12 jaar. De app leert kinderen Noors op een leuke en simpele manier via spelletjes.
+    Een taaltrainer app voor kinderen tussen de 7 en 12 jaar. De app leert kinderen Noors op een leuke en simpele manier via spelletjes.
 
-Voor wie?
+    Voor wie?
 
-Kinderen van 7 tot 12 jaar
-Particulier gebruik (niet voor scholen of bedrijven)
+    Kinderen van 7 tot 12 jaar
+    Particulier gebruik (niet voor scholen of bedrijven)
 
+    Hoe ziet de app eruit?
 
-Hoe ziet de app eruit?
-
-Vrolijke regenboogkleuren
-Ronde knoppen
-Simpele navigatie, niet te druk
-Kindvriendelijk lettertype
-Als er tijd over is: animaties toevoegen
-
-
-Welke taal?
-
-Alleen Noors
-Basisniveau, makkelijk
+    Vrolijke regenboogkleuren
+    Ronde knoppen
+    Simpele navigatie, niet te druk
+    Kindvriendelijk lettertype
+    Als er tijd over is: animaties toevoegen
 
 
-Niveaus
-De app heeft een sterrensysteem:
+    Welke taal?
 
-1 ster = level 10
-2 sterren = level 20
-3 sterren = level 30
-4 sterren = level 40
-5 sterren = Koning
-
-Je kunt omhoog én omlaag in niveau.
-
-Spelletjes
-
-Elk spelletje = 1 woord
-Spelletjes zijn kort
-Soorten vragen:
-
-Meerkeuze
-Aanklikken
+    Alleen Noors
+    Basisniveau, makkelijk
 
 
-Goed antwoord = groen, fout = rood
-Aan het einde zie je je score
-Woorden komen uit een database
+    Niveaus
+    De app heeft een sterrensysteem:
+
+    1 ster = level 10
+    2 sterren = level 20
+    3 sterren = level 30
+    4 sterren = level 40
+    5 sterren = Koning
+
+    Je kunt omhoog én omlaag in niveau.
+
+    Spelletjes
+
+    Elk spelletje = 1 woord
+    Spelletjes zijn kort
+    Soorten vragen:
+
+    Meerkeuze
+    Aanklikken
 
 
-Voortgang
-
-Voortgangsbalk is zichtbaar
-Sterrensysteem laat je niveau zien
-Geen dagelijkse streak of herinnering
+    Goed antwoord = groen, fout = rood
+    Aan het einde zie je je score
+    Woorden komen uit een database
 
 
-Account & Database
+    Voortgang
 
-Gebruiker kan een account aanmaken
-Score wordt opgeslagen in een database
-Woorden/vragen komen ook uit een database
-
-
-Wat hoeft er NIET in?
-
-Geen leaderboard
-Geen dagelijkse streak
-Geen andere talen dan Noors
+    Voortgangsbalk is zichtbaar
+    Sterrensysteem laat je niveau zien
+    Geen dagelijkse streak of herinnering
 
 
-Extra (als er tijd over is)
+    Account & Database
 
-Animaties bij goed antwoord of level-up
+    Gebruiker kan een account aanmaken
+    Score wordt opgeslagen in een database
+    Woorden/vragen komen ook uit een database
+
+
+    Wat hoeft er NIET in?
+
+    Geen leaderboard
+    Geen dagelijkse streak
+    Geen andere talen dan Noors
+
+
+    Extra (als er tijd over is)
+
+    Animaties bij goed antwoord of level-up
