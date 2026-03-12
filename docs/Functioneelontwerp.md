@@ -1,35 +1,13 @@
-Functioneel ontwerp – Noors leren webapp. Deze app is een speelse taaltrainer voor kinderen tussen de 7 en 12 jaar. Het biedt een leuke manier voor kids om de Noorse taal te leren door middel van korte spelletjes waarin ze woorden oefenen. Het hoofddoel is om kinderen op een eenvoudige en plezierige manier de basiswoorden bij te brengen.
+Het functioneel ontwerp van de Noorse taaltrainer app legt uit hoe de app werkt voor de gebruiker. Het doel van de app is om mensen te helpen de Noorse taal te leren via verschillende oefeningen. Gebruikers kunnen een account aanmaken, inloggen, oefeningen maken en hun scores bekijken. Zo kunnen ze hun vooruitgang bijhouden en blijven oefenen met de taal.
 
-De app heeft een vrolijke, kindvriendelijke uitstraling, met felle regenboogkleuren en grote, ronde knoppen. Navigatie is eenvoudig gehouden, zodat jonge gebruikers makkelijk kunnen begrijpen waar ze moeten klikken. Het scherm is overzichtelijk en het lettertype is duidelijk leesbaar voor de kinderen.
+Wanneer je de app opent, kom je eerst op de inlogpagina. Hier kun je inloggen met je account door je gebruikersnaam of e-mailadres en wachtwoord in te voeren. Als je nog geen account hebt, kun je via de registratiepagina een nieuw account aanmaken. Tijdens het registreren vul je gegevens in zoals een gebruikersnaam, e-mailadres en wachtwoord. Nadat je registratie is afgerond, kun je teruggaan naar de inlogpagina en inloggen.
 
-De app richt zich uitsluitend op de Noorse taal. De aangeboden woorden zijn op basisniveau, waardoor kinderen zonder problemen kunnen starten. Gebruikers kunnen een account aanmaken om hun scores en voortgang bij te houden.
+Zodra je succesvol bent ingelogd, kom je op de beginpagina. Hier zie je een overzicht van alle beschikbare oefeningen en ook je huidige score of voortgang. Vanaf deze pagina kun je een oefening starten om verder te oefenen met het Noors. Je kunt ook naar je profiel gaan om je persoonlijke gegevens en voortgang te bekijken.
 
-Het systeem met sterren wijst niveaus toe: 1 ster staat voor level 10, 2 sterren voor level 20, 3 sterren voor level 30, 4 sterren voor level 40 en 5 sterren voor het hoogste niveau, 'Koning'. Gebruikers kunnen zelf een niveau selecteren en desgewenst terugkeren naar een lager niveau.
+Als je een oefening start, kom je in het oefenscherm terecht. In dit scherm maak je opdrachten of beantwoord je vragen die met de Noorse taal te maken hebben. Tijdens de oefening kun je doorgaan naar de volgende vraag door op een knop te drukken. Zodra je de oefening hebt afgerond, wordt deze afgesloten en ga je automatisch naar de scorepagina.
 
-De app bestaat uit verschillende schermen:
+Op de scorepagina zie je hoeveel punten je hebt behaald met de oefening, wat laat zien hoe goed je de vragen hebt gemaakt. Vanaf deze pagina kun je weer terug naar de beginpagina om een nieuwe oefening te starten of om je voortgang te bekijken.
 
-Home scherm - Hier kan de gebruiker inloggen of een account aanmaken. Ook kan men naar het level scherm gaan om een spel te starten.
+Je hebt ook een profielpagina. Hier kun je je profiel bekijken en zien hoe ver je bent gekomen met de oefeningen en welke scores je hebt gehaald. In je profiel heb je ook de optie om uit te loggen. Als je uitlogt, word je teruggestuurd naar de inlogpagina en moet je opnieuw inloggen om de app te gebruiken.
 
-Account scherm - Op dit scherm kan de gebruiker eenvoudig een account aanmaken of inloggen door een gebruikersnaam en wachtwoord in te vullen. Zodra het account aangemaakt is, worden de voortgang en scores van de speler opgeslagen.
-
-Level scherm - Hier kan de gebruiker een niveau kiezen. De levels zijn duidelijk aangegeven met sterren, zodat het makkelijk te begrijpen is welk niveau men selecteert. De gebruiker kan een level kiezen om het spel te starten en zijn huidige niveau bekijken.
-
-Spel scherm - Op dit scherm speelt de gebruiker het spel. De speler ziet een woord of vraag in het Noors en moet vervolgens het juiste antwoord kiezen. Er zijn twee soorten vragen: meerkeuzevragen, waarbij de gebruiker het juiste antwoord uit meerdere opties selecteert, en aanklikvragen, waarbij het juiste woord of plaatje aangeklikt moet worden. De vragen zijn kort en richten zich steeds op één specifiek woord.
-
-Feedback scherm (na een antwoord) - Zodra de gebruiker een antwoord heeft gekozen, krijgt hij direct feedback. Een goed antwoord wordt groen weergegeven, terwijl een fout antwoord rood wordt gemarkeerd. Zo weet de gebruiker onmiddellijk of hij het goed heeft.
-
-Score scherm - Aan het einde van het spel krijgt de gebruiker zijn score te zien. Hierin staat hoeveel antwoorden goed waren en hoeveel fout. Dit helpt de speler om zijn prestaties in de gaten te houden.
-
-Voortgang - Terwijl de gebruiker speelt, is er een voortgangsbalk zichtbaar die laat zien hoe ver hij in het niveau is. Ook wordt het niveau van de speler weergegeven met sterren.
-
-Enkele belangrijkste functies van de app zijn:
-
-- Woorden tonen: De app toont Noorse woorden aan de gebruiker, afkomstig uit een database. Elk spelletje gebruikt één enkel woord.
-
-- Antwoord invoeren: De gebruiker kan zijn antwoord geven door een optie te kiezen of iets aan te klikken.
-
-- Feedback geven: De app toont direct of een antwoord goed of fout is. Goed wordt groen weergegeven, en fout wordt rood weergegeven.
-
-- Score bijhouden: De app houdt bij hoeveel antwoorden goed of fout zijn. Aan het einde van het spel worden de score gepresenteerd en opgeslagen.
-
-De app bevat geen leaderboard of dagelijkse streaks, en het richt zich alleen op de Noorse taal. Indien er tijd over blijft, kunnen er animaties worden toegevoegd bij een goed antwoord of wanneer een speler een nieuw niveau bereikt.
+De hele applicatie werkt dus in een vaste volgorde: inloggen, naar de beginpagina gaan, een oefening kiezen, de oefening maken en vervolgens je score zien. Daarna kun je verder oefenen of je profiel bekijken. Op deze manier helpt de app gebruikers om stap voor stap hun kennis van het Noors te verbeteren.
