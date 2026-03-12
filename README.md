@@ -2,7 +2,7 @@
 
 Een taal traineer om woordjes te leren. 
 
-Bedoel voor kinderen die op een makkelijke en gestructureerde manier een nieuwe taal willen leren.
+Bedoeld voor kinderen die op een makkelijke en gestructureerde manier een nieuwe taal willen leren.
 
 
 - Tyrone: Planner
