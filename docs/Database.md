@@ -1,4 +1,4 @@
-# Database Plan – Taal leer App
+# Database Plan – taaltrainer app
 
 ## Soorten data
 
@@ -21,17 +21,8 @@
 | xp                | INT     | Aantal XP van de gebruiker |
 | level             | INT     | De level van de speler     |
 
----
-
-## Levels
-
-| veld            | type | beschrijving               |
-| --------------- | ---- | -------------------------- |
-| level_id        | INT  | Uniek level                |
-| question_amount | INT  | Aantal vragen in dit level |
-| xp_reward       | INT  | XP reward voor het level   |
-
----
+                          |
+                          V
 
 ## (Vragen)
 
@@ -43,7 +34,8 @@
 | question_text | TEXT    | De vraag zelf                 |
 | xp_reward     | INT     | XP voor correcte antwoord     |
 
----
+                          |
+                          V
 
 ## (Antwoordopties)
 
@@ -54,5 +46,17 @@
 | answer_text | VARCHAR | Antwoordoptie                 |
 | is_correct  | BOOLEAN | Of dit het juiste antwoord is |
 
----
+                          |
+                          V
+
+
+## Levels
+
+| veld            | type | beschrijving               |
+| --------------- | ---- | -------------------------- |
+| level_id        | INT  | Uniek level                |
+| question_amount | INT  | Aantal vragen in dit level |
+| xp_reward       | INT  | XP reward voor het level   |
+
+
 
