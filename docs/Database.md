@@ -8,7 +8,7 @@
 
 ---
 
-## Users (Gebruikers)
+## (Gebruikers)
 
 | veld              | type    | beschrijving               |
 | ----------------- | ------- | -------------------------- |
@@ -33,7 +33,7 @@
 
 ---
 
-## Questions (Vragen)
+## (Vragen)
 
 | veld          | type    | beschrijving                  |
 | ------------- | ------- | ----------------------------- |
@@ -45,7 +45,7 @@
 
 ---
 
-## Answers (Antwoordopties)
+## (Antwoordopties)
 
 | veld        | type    | beschrijving                  |
 | ----------- | ------- | ----------------------------- |
