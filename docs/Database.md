@@ -1,4 +1,4 @@
-# Database Plan – Taalleer App
+# Database Plan – Taal leer App
 
 ## Soorten data
 
