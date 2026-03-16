@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Oefening - Noorse Taaltrainer</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Oefening</h2>
+        <form action="../php/exercise.php" method="post">
+            <label for="question">Vraag:</label>
+            <input type="text" id="question" name="question" value="Wat betekent 'hei'?" readonly>
+            <label for="answer">Antwoord:</label>
+            <input type="text" id="answer" name="answer" required>
+            <button type="submit" class="button">Volgende vraag</button>
+        </form>
+    </div>
+</body>
+</html>
