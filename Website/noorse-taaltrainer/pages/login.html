@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inloggen - Noorse Taaltrainer</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="topbar">
+        <a href="index.html" class="topbar-logo">🇳🇴 Taaltrainer</a>
+        <a href="index.html" class="topbar-btn">🏠 Home</a>
+    </nav>
+    <div class="page">
+        <div class="card">
+            <span class="emoji-big">🔐</span>
+            <h2 class="text-center">Inloggen</h2>
+            <div id="fout-msg" class="feedback wrong" style="display:none;font-size:1em;width:100%;margin-top:0;"></div>
+            <form action="../php/login.php" method="post">
+                <label for="username">👤 Gebruikersnaam</label>
+                <input type="text" id="username" name="username" placeholder="Jouw gebruikersnaam..." required>
+                <label for="password">🔒 Wachtwoord</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <button type="submit" class="btn btn-green mt">🚀 Inloggen</button>
+            </form>
+            <script>
+                var fout = new URLSearchParams(window.location.search).get('fout');
+                if (fout) {
+                    var el = document.getElementById('fout-msg');
+                    el.textContent = '⚠️ ' + fout;
+                    el.style.display = 'block';
+                }
+            </script>
+            <hr class="divider">
+            <p class="text-center">Nog geen account? <a href="register.html">Maak er gratis een aan!</a></p>
+            <a href="index.html" class="btn-back">⬅ Terug</a>
+        </div>
+    </div>
+</body>
+</html>

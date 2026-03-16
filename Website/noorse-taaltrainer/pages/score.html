@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score - Noorse Taaltrainer</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="topbar">
+        <a href="dashboard.html" class="topbar-logo">🇳🇴 Taaltrainer</a>
+        <a href="dashboard.html" class="topbar-btn">🏠 Home</a>
+    </nav>
+    <div class="page">
+        <div class="card">
+            <span class="emoji-big" id="result-emoji">🎉</span>
+            <h2 class="text-center" id="result-title">Gefeliciteerd!</h2>
+
+            <div class="score-big" id="score-display">— / —</div>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="score-fill" style="width:0%"></div>
+            </div>
+
+            <div class="stars" id="stars-display">☆☆☆☆☆</div>
+            <p class="text-center" id="score-feedback" style="font-size:1.1em; color:#5c3d99; font-weight:bold;"></p>
+
+            <div class="stat-row" style="margin-top:16px;">
+                <div class="stat-box">
+                    <div class="stat-value" id="score-val">0</div>
+                    <div class="stat-label">✅ Goed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="pct-val">0%</div>
+                    <div class="stat-label">📊 Score</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="xp-val">+0</div>
+                    <div class="stat-label">⚡ XP</div>
+                </div>
+            </div>
+
+            <hr class="divider">
+            <a href="../php/exercise.php" class="btn btn-yellow">🔄 Opnieuw oefenen</a>
+            <a href="dashboard.html" class="btn btn-blue mt">🏠 Terug naar home</a>
+        </div>
+    </div>
+    <script>
+        const p = new URLSearchParams(window.location.search);
+        const score = parseInt(p.get('score')) || 0;
+        const total = parseInt(p.get('total')) || 5;
+        const pct = Math.round((score / total) * 100);
+        const xp = score * 10;
+
+        document.getElementById('score-display').textContent = score + ' / ' + total;
+        document.getElementById('score-val').textContent = score;
+        document.getElementById('pct-val').textContent = pct + '%';
+        document.getElementById('xp-val').textContent = '+' + xp;
+        document.getElementById('score-fill').style.width = (100 - pct) + '%';
+
+        const stars = (pct >= 90 ? '⭐⭐⭐⭐⭐' : pct >= 70 ? '⭐⭐⭐⭐☆' : pct >= 50 ? '⭐⭐⭐☆☆' : pct >= 30 ? '⭐⭐☆☆☆' : '⭐☆☆☆☆');
+        document.getElementById('stars-display').textContent = stars;
+
+        if (pct >= 80) {
+            document.getElementById('result-emoji').textContent = '🏆';
+            document.getElementById('result-title').textContent = 'Geweldig gedaan!';
+            document.getElementById('score-feedback').textContent = 'Jij bent een echte Noors-expert! 🎉';
+        } else if (pct >= 50) {
+            document.getElementById('result-emoji').textContent = '😊';
+            document.getElementById('result-title').textContent = 'Goed gedaan!';
+            document.getElementById('score-feedback').textContent = 'Blijf oefenen, je komt er!';
+        } else {
+            document.getElementById('result-emoji').textContent = '💪';
+            document.getElementById('result-title').textContent = 'Blijf proberen!';
+            document.getElementById('score-feedback').textContent = 'Oefening baart kunst!';
+        }
+    </script>
+</body>
+</html>

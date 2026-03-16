@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registreren - Noorse Taaltrainer</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav class="topbar">
+        <a href="index.html" class="topbar-logo">🇳🇴 Taaltrainer</a>
+        <a href="index.html" class="topbar-btn">🏠 Home</a>
+    </nav>
+    <div class="page">
+        <div class="card">
+            <span class="emoji-big">✨</span>
+            <h2 class="text-center">Account aanmaken</h2>
+            <div id="fout-msg" class="feedback wrong" style="display:none;font-size:1em;width:100%;margin-top:0;"></div>
+            <form action="../php/register.php" method="post">
+                <label for="username">👤 Gebruikersnaam</label>
+                <input type="text" id="username" name="username" placeholder="Kies een naam..." required>
+                <label for="email">📧 E-mailadres</label>
+                <input type="email" id="email" name="email" placeholder="jouw@email.nl" required>
+                <label for="password">🔒 Wachtwoord</label>
+                <input type="password" id="password" name="password" placeholder="Kies een wachtwoord..." required>
+                <button type="submit" class="btn btn-purple mt">🎉 Account aanmaken!</button>
+            </form>
+            <script>
+                var fout = new URLSearchParams(window.location.search).get('fout');
+                if (fout) {
+                    var el = document.getElementById('fout-msg');
+                    el.textContent = '⚠️ ' + fout;
+                    el.style.display = 'block';
+                }
+            </script>
+            <hr class="divider">
+            <p class="text-center">Al een account? <a href="login.html">Log hier in!</a></p>
+            <a href="index.html" class="btn-back">⬅ Terug</a>
+        </div>
+    </div>
+</body>
+</html>
