@@ -1,4 +1,4 @@
-﻿<?php
+﻿﻿<?php
 require_once __DIR__ . '/db.php';
 
 function haal_alle_vragen(): array {

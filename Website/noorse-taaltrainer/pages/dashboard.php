@@ -17,7 +17,7 @@ if (!$user) { session_destroy(); header('Location: login.html'); exit(); }
 $xp       = (int)$user['xp'];
 $naam     = htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8');
 $level    = (int)$user['level'];
-$stars    = min(5, $level - 1);
+$stars    = $level; // Level 1 = 1 ster, Level 2 = 2 sterren, etc.
 $progress = ($xp % 50) * 2;
 
 $r_stmt = $pdo->prepare('SELECT COUNT(*) FROM scores WHERE user_id = ?');
@@ -41,7 +41,7 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
 </head>
 <body>
     <nav class="topbar">
-        <a href="index.html" class="topbar-logo">Taaltrainer</a>
+        <a class="topbar-logo">Taaltrainer</a>
         <a href="profile.php" class="topbar-btn">Profiel</a>
     </nav>
     <div class="page">

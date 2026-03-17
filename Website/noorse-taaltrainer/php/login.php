@@ -18,7 +18,7 @@ if ($gebruikersnaam === '' || $wachtwoord === '') {
 try {
     $pdo  = get_db();
     $stmt = $pdo->prepare(
-        'SELECT user_id, username, wachtwoord FROM gebruikers WHERE username = ? LIMIT 1'
+        'SELECT user_id, username, wachtwoord, level FROM gebruikers WHERE username = ? LIMIT 1'
     );
     $stmt->execute([$gebruikersnaam]);
     $user = $stmt->fetch();
@@ -27,6 +27,7 @@ try {
         session_regenerate_id(true);
         $_SESSION['user_id']  = (int)$user['user_id'];
         $_SESSION['username'] = $user['username'];
+        $_SESSION['level']    = (int)$user['level'];
         header('Location: ../pages/dashboard.php');
         exit();
     }

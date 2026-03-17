@@ -1,4 +1,4 @@
-﻿<?php
+﻿﻿<?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.html');
@@ -41,7 +41,7 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
 </head>
 <body>
     <nav class="topbar">
-        <a href="dashboard.php" class="topbar-logo">Taaltrainer</a>
+        <a class="topbar-logo">Taaltrainer</a>
         <a href="dashboard.php" class="topbar-btn">🏠 Home</a>
     </nav>
     <div class="page">
