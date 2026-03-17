@@ -55,7 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ? (int)$_SESSION['q_wrong'][(int)$_SESSION['q_index']]
             : (int)$_SESSION['q_index'];
 
-        $vd     = haal_vraag_op($vraag_idx);
+        $vd = haal_vraag_op($vraag_idx);
+        if ($vd === null) {
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit();
+        }
+
         $isGoed = ($answer === $vd['goed']);
 
         $_SESSION['q_answered']++;
@@ -77,6 +82,19 @@ $is_retry = ($_SESSION['q_phase'] === 'retry');
 $fase_totaal = $is_retry ? count($_SESSION['q_wrong']) : $total;
 $vraag_idx   = $is_retry ? (int)($_SESSION['q_wrong'][$index] ?? 0) : $index;
 $vraagdata   = haal_vraag_op($vraag_idx);
+
+if ($vraagdata === null) {
+    $score = min((int)$_SESSION['q_score'], $total);
+    $uid   = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
+    sla_score_op($uid, $score, $total);
+    $_SESSION['q_index']    = 0;
+    $_SESSION['q_score']    = 0;
+    $_SESSION['q_wrong']    = [];
+    $_SESSION['q_phase']    = 'main';
+    $_SESSION['q_answered'] = 0;
+    header('Location: ../pages/score.html?score=' . $score . '&total=' . $total);
+    exit();
+}
 
 $fill_pct = (int)round((1 - $index / max($fase_totaal, 1)) * 100);
 
