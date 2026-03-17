@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 session_start();
 require_once 'functions.php';
 
@@ -97,7 +97,7 @@ $accuracy = $answered_total > 0
 
 <nav class="topbar">
     <a class="topbar-logo">Taaltrainer</a>
-    <a href="../pages/dashboard.php" class="topbar-btn">🏠 Home</a>
+    <a href="../pages/dashboard.php" class="topbar-btn">🏠 Dashboard</a>
 </nav>
 
 <div class="page">
