@@ -41,8 +41,8 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
 </head>
 <body>
     <nav class="topbar">
-        <a href="index.html" class="topbar-logo">🇳🇴 Taaltrainer</a>
-        <a href="../php/logout.php" class="topbar-btn">🚪 Uitloggen</a>
+        <a href="index.html" class="topbar-logo">Taaltrainer</a>
+        <a href="profile.php" class="topbar-btn">Profiel</a>
     </nav>
     <div class="page">
         <div class="card">
@@ -74,7 +74,6 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
 
             <hr class="divider">
             <a href="../php/exercise.php" class="btn btn-yellow">🎮 Oefening starten!</a>
-            <a href="profile.php" class="btn btn-blue mt">👤 Mijn profiel</a>
         </div>
     </div>
 </body>

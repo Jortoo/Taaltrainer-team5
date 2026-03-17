@@ -93,18 +93,3 @@ function genereer_antwoorden(array $keuzes, string $geselecteerd = ''): string {
     return $html;
 }
 
-function toon_feedback($isGoed, $goedAntwoord, $gekozenAntwoord) {
-    if ($isGoed) {
-        return '
-        <div class="feedback goed">
-            ✅ Goed gedaan!
-        </div>';
-    } else {
-        return '
-        <div class="feedback fout">
-            ❌ Fout! <br><br>
-            👉 Jouw antwoord: <strong>' . htmlspecialchars($gekozenAntwoord, ENT_QUOTES, 'UTF-8') . '</strong><br>
-            ✅ Juiste antwoord: <strong>' . htmlspecialchars($goedAntwoord, ENT_QUOTES, 'UTF-8') . '</strong>
-        </div>';
-    }
-}

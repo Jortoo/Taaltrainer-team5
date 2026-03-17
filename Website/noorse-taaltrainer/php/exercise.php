@@ -97,8 +97,8 @@ $accuracy = $answered_total > 0
 <body>
 
 <nav class="topbar">
-    <a href="../pages/index.html" class="topbar-logo">🇳🇴 Taaltrainer</a>
-    <a href="../pages/dashboard.php" class="topbar-btn">🏠 Dashboard</a>
+    <a class="topbar-logo">Taaltrainer</a>
+    <a href="../pages/dashboard.php" class="topbar-btn">🏠 Home</a>
 </nav>
 
 <div class="page">
@@ -140,9 +140,6 @@ $accuracy = $answered_total > 0
                 </button>
             </form>
         <?php endif; ?>
-
-        <a href="../pages/dashboard.php" class="btn-back">⬅ Terug naar dashboard</a>
-
     </div>
 </div>
 

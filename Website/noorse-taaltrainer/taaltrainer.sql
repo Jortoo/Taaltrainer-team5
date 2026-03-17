@@ -32,7 +32,7 @@ CREATE TABLE `antwoordopties` (
   `question_id` int NOT NULL,
   `answer_text` varchar(100) NOT NULL,
   `is_correct` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `antwoordopties`
@@ -95,7 +95,7 @@ CREATE TABLE `gebruikers` (
   `total_score` int NOT NULL DEFAULT '0',
   `xp` int NOT NULL DEFAULT '0',
   `level` int NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `gebruikers`
@@ -114,7 +114,7 @@ CREATE TABLE `levels` (
   `level_id` int NOT NULL,
   `question_amount` int NOT NULL DEFAULT '5',
   `xp_reward` int NOT NULL DEFAULT '50'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `levels`
@@ -139,7 +139,7 @@ CREATE TABLE `scores` (
   `score` int NOT NULL,
   `totaal` int NOT NULL,
   `gespeeld_op` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `scores`
@@ -160,7 +160,7 @@ CREATE TABLE `vragen` (
   `difficulty` varchar(20) NOT NULL DEFAULT 'makkelijk',
   `question_text` text NOT NULL,
   `xp_reward` int NOT NULL DEFAULT '10'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `vragen`

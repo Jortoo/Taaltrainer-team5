@@ -45,8 +45,8 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
 </head>
 <body>
     <nav class="topbar">
-        <a href="index.html" class="topbar-logo">🇳🇴 Taaltrainer</a>
-        <a href="../php/logout.php" class="topbar-btn">🚪 Uitloggen</a>
+        <a class="topbar-logo">Taaltrainer</a>
+        <a href="profile.php" class="topbar-btn">Profiel</a>
     </nav>
     <div class="page">
         <div class="card">
