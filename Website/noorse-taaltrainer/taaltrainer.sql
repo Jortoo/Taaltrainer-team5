@@ -78,7 +78,47 @@ INSERT INTO `antwoordopties` (`answer_id`, `question_id`, `answer_text`, `is_cor
 (37, 10, 'Kleuren', 1),
 (38, 10, 'Dieren', 0),
 (39, 10, 'Getallen', 0),
-(40, 10, 'Woorden', 0);
+(40, 10, 'Woorden', 0),
+(41, 11, 'Nee', 1),
+(42, 11, 'Ja', 0),
+(43, 11, 'Misschien', 0),
+(44, 11, 'Altijd', 0),
+(45, 12, 'Hus', 1),
+(46, 12, 'Bil', 0),
+(47, 12, 'Bok', 0),
+(48, 12, 'Skole', 0),
+(49, 13, 'Ja', 1),
+(50, 13, 'Nee', 0),
+(51, 13, 'Misschien', 0),
+(52, 13, 'Nooit', 0),
+(53, 14, 'Katt', 1),
+(54, 14, 'Hund', 0),
+(55, 14, 'Fugl', 0),
+(56, 14, 'Fisk', 0),
+(57, 15, 'Goedenacht', 1),
+(58, 15, 'Goedemorgen', 0),
+(59, 15, 'Tot ziens', 0),
+(60, 15, 'Hallo', 0),
+(61, 16, 'Fugl', 1),
+(62, 16, 'Fisk', 0),
+(63, 16, 'Hund', 0),
+(64, 16, 'Katt', 0),
+(65, 17, 'Auto', 1),
+(66, 17, 'Trein', 0),
+(67, 17, 'Bus', 0),
+(68, 17, 'Fiets', 0),
+(69, 18, 'Fisk', 1),
+(70, 18, 'Fugl', 0),
+(71, 18, 'Hund', 0),
+(72, 18, 'Katt', 0),
+(73, 19, 'Boek', 1),
+(74, 19, 'Pen', 0),
+(75, 19, 'Papier', 0),
+(76, 19, 'Krant', 0),
+(77, 20, 'Melk', 1),
+(78, 20, 'Water', 0),
+(79, 20, 'Sap', 0),
+(80, 20, 'Thee', 0);
 
 -- --------------------------------------------------------
 
@@ -172,11 +212,21 @@ INSERT INTO `vragen` (`question_id`, `level_id`, `difficulty`, `question_text`, 
 (3, 1, 'makkelijk', 'Wat betekent \'takk\'?', 10),
 (4, 1, 'makkelijk', 'Wat is het Noorse woord voor \'hond\'?', 10),
 (5, 1, 'makkelijk', 'Wat betekent \'god morgen\'?', 10),
-(6, 2, 'gemiddeld', 'Wat betekent \'vann\'?', 15),
-(7, 2, 'gemiddeld', 'Wat is het Noorse woord voor \'school\'?', 15),
-(8, 2, 'gemiddeld', 'Wat betekent \'stor\'?', 15),
-(9, 2, 'gemiddeld', 'Wat is het Noorse woord voor \'vriend\'?', 15),
-(10, 2, 'gemiddeld', 'Wat betekent \'farger\'?', 15);
+(6, 1, 'makkelijk', 'Wat betekent \'vann\'?', 10),
+(7, 1, 'makkelijk', 'Wat is het Noorse woord voor \'school\'?', 10),
+(8, 1, 'makkelijk', 'Wat betekent \'stor\'?', 10),
+(9, 1, 'makkelijk', 'Wat is het Noorse woord voor \'vriend\'?', 10),
+(10, 1, 'makkelijk', 'Wat betekent \'farger\'?', 10),
+(11, 1, 'makkelijk', 'Wat betekent \'nei\'?', 10),
+(12, 1, 'makkelijk', 'Wat is het Noorse woord voor \'huis\'?', 10),
+(13, 1, 'makkelijk', 'Wat betekent \'ja\'?', 10),
+(14, 1, 'makkelijk', 'Wat is het Noorse woord voor \'kat\'?', 10),
+(15, 1, 'makkelijk', 'Wat betekent \'god natt\'?', 10),
+(16, 1, 'makkelijk', 'Wat is het Noorse woord voor \'vogel\'?', 10),
+(17, 1, 'makkelijk', 'Wat betekent \'bil\'?', 10),
+(18, 1, 'makkelijk', 'Wat is het Noorse woord voor \'vis\'?', 10),
+(19, 1, 'makkelijk', 'Wat betekent \'bok\'?', 10),
+(20, 1, 'makkelijk', 'Wat is het Noorse woord voor \'melk\'?', 10);
 
 --
 -- Indexes for dumped tables
@@ -225,7 +275,7 @@ ALTER TABLE `vragen`
 -- AUTO_INCREMENT for table `antwoordopties`
 --
 ALTER TABLE `antwoordopties`
-  MODIFY `answer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `answer_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `gebruikers`
@@ -249,7 +299,7 @@ ALTER TABLE `scores`
 -- AUTO_INCREMENT for table `vragen`
 --
 ALTER TABLE `vragen`
-  MODIFY `question_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `question_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
