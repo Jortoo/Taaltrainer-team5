@@ -7,9 +7,9 @@ $total = geef_totaal_vragen();
 // Initialize session
 if (!isset($_SESSION['q_index']))    $_SESSION['q_index']    = 0;
 if (!isset($_SESSION['q_score']))    $_SESSION['q_score']    = 0;
-if (!isset($_SESSION['q_wrong']))    $_SESSION['q_wrong']    = [];   // indices of wrong answers (main phase)
-if (!isset($_SESSION['q_phase']))    $_SESSION['q_phase']    = 'main'; // 'main' or 'retry'
-if (!isset($_SESSION['q_answered'])) $_SESSION['q_answered'] = 0;    // total questions answered
+if (!isset($_SESSION['q_wrong']))    $_SESSION['q_wrong']    = [];
+if (!isset($_SESSION['q_phase']))    $_SESSION['q_phase']    = 'main';
+if (!isset($_SESSION['q_answered'])) $_SESSION['q_answered'] = 0;
 
 $feedback = '';
 $selected = '';
@@ -23,34 +23,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ((int)$_SESSION['q_index'] >= $fase_totaal) {
             if ($_SESSION['q_phase'] === 'main' && !empty($_SESSION['q_wrong'])) {
-                // Switch to retry phase for wrong answers
                 $_SESSION['q_phase'] = 'retry';
                 $_SESSION['q_index'] = 0;
                 header('Location: ' . $_SERVER['PHP_SELF']);
                 exit();
             } else {
-                // All done – score is capped at original total
                 $score = min((int)$_SESSION['q_score'], $total);
                 $uid   = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
                 sla_score_op($uid, $score, $total);
+
                 $_SESSION['q_index']    = 0;
                 $_SESSION['q_score']    = 0;
                 $_SESSION['q_wrong']    = [];
                 $_SESSION['q_phase']    = 'main';
                 $_SESSION['q_answered'] = 0;
+
                 header('Location: ../pages/score.html?score=' . $score . '&total=' . $total);
                 exit();
             }
         }
+
         header('Location: ' . $_SERVER['PHP_SELF']);
         exit();
     }
 
     if (isset($_POST['answer'])) {
-        $answer   = htmlspecialchars(trim($_POST['answer']), ENT_QUOTES, 'UTF-8');
+        $answer   = trim($_POST['answer']); 
         $selected = $answer;
 
-        // Determine which question index to look up
         $vraag_idx = ($_SESSION['q_phase'] === 'retry')
             ? (int)$_SESSION['q_wrong'][(int)$_SESSION['q_index']]
             : (int)$_SESSION['q_index'];
@@ -59,14 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isGoed = ($answer === $vd['goed']);
 
         $_SESSION['q_answered']++;
+
         if ($isGoed) {
             $_SESSION['q_score']++;
         } elseif ($_SESSION['q_phase'] === 'main') {
-            // Queue this question for retry
             $_SESSION['q_wrong'][] = (int)$_SESSION['q_index'];
         }
 
-        $feedback = toon_feedback($isGoed);
+        $feedback = toon_feedback($isGoed, $vd['goed']);
         $answered = true;
     }
 }
@@ -80,7 +80,6 @@ $vraagdata   = haal_vraag_op($vraag_idx);
 
 $fill_pct = (int)round((1 - $index / max($fase_totaal, 1)) * 100);
 
-// Accuracy capped at 100%
 $answered_total = (int)$_SESSION['q_answered'];
 $accuracy = $answered_total > 0
     ? min(100, (int)round($_SESSION['q_score'] / $answered_total * 100))
@@ -140,18 +139,19 @@ $accuracy = $answered_total > 0
                 </button>
             </form>
         <?php endif; ?>
+
     </div>
 </div>
 
 <script>
-    document.querySelectorAll('.mc-option input[type="radio"]').forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            document.querySelectorAll('.mc-option').forEach(function(opt) {
-                opt.classList.remove('selected');
-            });
-            this.closest('.mc-option').classList.add('selected');
+document.querySelectorAll('.mc-option input[type="radio"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        document.querySelectorAll('.mc-option').forEach(function(opt) {
+            opt.classList.remove('selected');
         });
+        this.closest('.mc-option').classList.add('selected');
     });
+});
 </script>
 
 </body>

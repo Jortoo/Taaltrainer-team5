@@ -12,7 +12,7 @@ function haal_alle_vragen(): array {
 
     if (empty($vragen_rows)) { $cache = []; return $cache; }
 
-    $ids      = implode(',', array_map('intval', array_column($vragen_rows, 'question_id')));
+    $ids = implode(',', array_map('intval', array_column($vragen_rows, 'question_id')));
     $ant_stmt = $pdo->query(
         "SELECT question_id, answer_text, is_correct FROM antwoordopties WHERE question_id IN ($ids)"
     );
@@ -30,8 +30,12 @@ function haal_alle_vragen(): array {
 
         $keuzes = array_column($ants, 'answer_text');
         $goed   = '';
+
         foreach ($ants as $a) {
-            if ((int)$a['is_correct'] === 1) { $goed = $a['answer_text']; break; }
+            if ((int)$a['is_correct'] === 1) {
+                $goed = $a['answer_text'];
+                break;
+            }
         }
 
         $cache[] = [
@@ -42,6 +46,7 @@ function haal_alle_vragen(): array {
             'xp_reward'  => (int)$rij['xp_reward'],
         ];
     }
+
     return $cache;
 }
 
@@ -51,31 +56,26 @@ function haal_vraag_op(int $index): ?array {
 }
 
 function geef_totaal_vragen(): int {
-    return (int) get_db()->query('SELECT COUNT(*) FROM vragen')->fetchColumn();
+    return (int)get_db()->query('SELECT COUNT(*) FROM vragen')->fetchColumn();
 }
 
 function sla_score_op(?int $user_id, int $score, int $totaal): void {
     $pdo  = get_db();
     $stmt = $pdo->prepare('INSERT INTO scores (user_id, score, totaal) VALUES (?, ?, ?)');
     $stmt->execute([$user_id, $score, $totaal]);
-
-    if ($user_id !== null) {
-        $xp_gained = $score * 10;
-        $pdo->prepare('UPDATE gebruikers SET xp = xp + ?, total_score = total_score + ? WHERE user_id = ?')
-            ->execute([$xp_gained, $score, $user_id]);
-
-        $xp_stmt = $pdo->prepare('SELECT xp FROM gebruikers WHERE user_id = ?');
-        $xp_stmt->execute([$user_id]);
-        $xp_now      = (int)$xp_stmt->fetchColumn();
-        $nieuw_level = min(5, (int)floor($xp_now / 50) + 1);
-        $pdo->prepare('UPDATE gebruikers SET level = ? WHERE user_id = ?')
-            ->execute([$nieuw_level, $user_id]);
-    }
 }
 
-function toon_feedback(bool $isGoed): string {
-    if ($isGoed) return '<div class="feedback good">✅ Goed gedaan!</div>';
-    return '<div class="feedback wrong">❌ Helaas, probeer het nog eens!</div>';
+function toon_feedback(bool $isGoed, string $goedAntwoord = ''): string {
+    if ($isGoed) {
+        return '<div class="feedback good">Goed gedaan!</div>';
+    }
+
+    $goedAntwoord = htmlspecialchars($goedAntwoord, ENT_QUOTES, 'UTF-8');
+
+    return '<div class="feedback wrong">
+         Helaas, fout antwoord.<br>
+        <strong>Juiste antwoord:</strong> ' . $goedAntwoord . '
+    </div>';
 }
 
 function genereer_antwoorden(array $keuzes, string $geselecteerd = ''): string {
@@ -84,6 +84,7 @@ function genereer_antwoorden(array $keuzes, string $geselecteerd = ''): string {
         $safe    = htmlspecialchars($keuze, ENT_QUOTES, 'UTF-8');
         $cls     = ($geselecteerd === $keuze) ? ' selected' : '';
         $checked = ($geselecteerd === $keuze) ? 'checked' : '';
+
         $html .= '<label class="mc-option' . $cls . '">';
         $html .= '<input type="radio" name="answer" value="' . $safe . '" ' . $checked . '>';
         $html .= '<span class="mc-label">' . $safe . '</span>';
@@ -92,4 +93,3 @@ function genereer_antwoorden(array $keuzes, string $geselecteerd = ''): string {
     $html .= '</div>';
     return $html;
 }
-

@@ -227,3 +227,13 @@ input[readonly] { background: #f0f4f8; color: #666; border-color: #dde2e8; }
     text-align: center; font-size: 3.2em; font-weight: bold; color: #6d28d9;
     margin: 10px 0;
 }
+
+.mc-option.correct {
+    background: #d4edda;
+    border: 2px solid #28a745;
+}
+
+.mc-option.wrong {
+    background: #f8d7da;
+    border: 2px solid #dc3545;
+}
