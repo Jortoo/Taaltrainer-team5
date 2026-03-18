@@ -17,15 +17,15 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
+-- --------------------------------------------------------
 -- Database: `taaltrainer`
---
+-- --------------------------------------------------------
 
 -- --------------------------------------------------------
 
---
+-- --------------------------------------------------------
 -- Tabelstructuur voor tabel `antwoordopties`
---
+-- --------------------------------------------------------
 
 CREATE TABLE `antwoordopties` (
   `answer_id` int(11) NOT NULL,
@@ -34,9 +34,9 @@ CREATE TABLE `antwoordopties` (
   `is_correct` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
+-- --------------------------------------------------------
 -- Gegevens worden geëxporteerd voor tabel `antwoordopties`
---
+-- --------------------------------------------------------
 
 INSERT INTO `antwoordopties` (`answer_id`, `question_id`, `answer_text`, `is_correct`) VALUES
 (1, 1, 'Hallo', 1),
@@ -242,9 +242,9 @@ INSERT INTO `antwoordopties` (`answer_id`, `question_id`, `answer_text`, `is_cor
 
 -- --------------------------------------------------------
 
---
+-- --------------------------------------------------------
 -- Tabelstructuur voor tabel `gebruikers`
---
+-- --------------------------------------------------------
 
 CREATE TABLE `gebruikers` (
   `user_id` int(11) NOT NULL,
@@ -257,9 +257,9 @@ CREATE TABLE `gebruikers` (
   `level` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
+-- --------------------------------------------------------
 -- Gegevens worden geëxporteerd voor tabel `gebruikers`
---
+-- --------------------------------------------------------
 
 INSERT INTO `gebruikers` (`user_id`, `username`, `email`, `wachtwoord`, `datum_registratie`, `total_score`, `xp`, `level`) VALUES
 (2, '123test', '123test@gmail.com', '$2y$10$fkns7q4lCpagJhM9kPtaLekeqilF5baQkBBR6XOtHc2n0asRE9Umm', '2026-03-16', 5, 50, 2),
@@ -267,9 +267,9 @@ INSERT INTO `gebruikers` (`user_id`, `username`, `email`, `wachtwoord`, `datum_r
 
 -- --------------------------------------------------------
 
---
+-- --------------------------------------------------------
 -- Tabelstructuur voor tabel `levels`
---
+-- --------------------------------------------------------
 
 CREATE TABLE `levels` (
   `level_id` int(11) NOT NULL,
@@ -277,9 +277,9 @@ CREATE TABLE `levels` (
   `xp_reward` int(11) NOT NULL DEFAULT 50
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
+-- --------------------------------------------------------
 -- Gegevens worden geëxporteerd voor tabel `levels`
---
+-- --------------------------------------------------------
 
 INSERT INTO `levels` (`level_id`, `question_amount`, `xp_reward`) VALUES
 (1, 10, 50),
@@ -290,9 +290,9 @@ INSERT INTO `levels` (`level_id`, `question_amount`, `xp_reward`) VALUES
 
 -- --------------------------------------------------------
 
---
+-- --------------------------------------------------------
 -- Tabelstructuur voor tabel `scores`
---
+-- --------------------------------------------------------
 
 CREATE TABLE `scores` (
   `id` int(11) NOT NULL,
@@ -302,9 +302,9 @@ CREATE TABLE `scores` (
   `gespeeld_op` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
+-- --------------------------------------------------------
 -- Gegevens worden geëxporteerd voor tabel `scores`
---
+-- --------------------------------------------------------
 
 INSERT INTO `scores` (`id`, `user_id`, `score`, `totaal`, `gespeeld_op`) VALUES
 (1, 2, 5, 10, '2026-03-16 16:22:12'),
@@ -320,9 +320,9 @@ INSERT INTO `scores` (`id`, `user_id`, `score`, `totaal`, `gespeeld_op`) VALUES
 
 -- --------------------------------------------------------
 
---
+-- --------------------------------------------------------
 -- Tabelstructuur voor tabel `vragen`
---
+-- --------------------------------------------------------
 
 CREATE TABLE `vragen` (
   `question_id` int(11) NOT NULL,
@@ -332,9 +332,9 @@ CREATE TABLE `vragen` (
   `xp_reward` int(11) NOT NULL DEFAULT 10
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
+-- --------------------------------------------------------
 -- Gegevens worden geëxporteerd voor tabel `vragen`
---
+-- --------------------------------------------------------
 
 INSERT INTO `vragen` (`question_id`, `level_id`, `difficulty`, `question_text`, `xp_reward`) VALUES
 (1, 1, 'makkelijk', 'Wat betekent \'hei\'?', 10),
@@ -388,98 +388,98 @@ INSERT INTO `vragen` (`question_id`, `level_id`, `difficulty`, `question_text`, 
 (49, 5, 'makkelijk', 'Wat betekent \'Jeg vil spise\'?', 10),
 (50, 5, 'makkelijk', 'Wat betekent \'Vi ses i morgen\'?', 10);
 
---
+-- --------------------------------------------------------
 -- Indexen voor geëxporteerde tabellen
---
+-- --------------------------------------------------------
 
---
+-- --------------------------------------------------------
 -- Indexen voor tabel `antwoordopties`
---
+-- --------------------------------------------------------
 ALTER TABLE `antwoordopties`
   ADD PRIMARY KEY (`answer_id`),
   ADD KEY `question_id` (`question_id`);
 
---
+-- --------------------------------------------------------
 -- Indexen voor tabel `gebruikers`
---
+-- --------------------------------------------------------
 ALTER TABLE `gebruikers`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
 
---
+-- --------------------------------------------------------
 -- Indexen voor tabel `levels`
---
+-- --------------------------------------------------------
 ALTER TABLE `levels`
   ADD PRIMARY KEY (`level_id`);
 
---
+-- --------------------------------------------------------
 -- Indexen voor tabel `scores`
---
+-- --------------------------------------------------------
 ALTER TABLE `scores`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
 
---
+-- --------------------------------------------------------
 -- Indexen voor tabel `vragen`
---
+-- --------------------------------------------------------
 ALTER TABLE `vragen`
   ADD PRIMARY KEY (`question_id`),
   ADD KEY `level_id` (`level_id`);
 
---
+-- --------------------------------------------------------
 -- AUTO_INCREMENT voor geëxporteerde tabellen
---
+-- --------------------------------------------------------
 
---
+-- --------------------------------------------------------
 -- AUTO_INCREMENT voor een tabel `antwoordopties`
---
+-- --------------------------------------------------------
 ALTER TABLE `antwoordopties`
   MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
 
---
+-- --------------------------------------------------------
 -- AUTO_INCREMENT voor een tabel `gebruikers`
---
+-- --------------------------------------------------------
 ALTER TABLE `gebruikers`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
---
+-- --------------------------------------------------------
 -- AUTO_INCREMENT voor een tabel `levels`
---
+-- --------------------------------------------------------
 ALTER TABLE `levels`
   MODIFY `level_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
---
+-- --------------------------------------------------------
 -- AUTO_INCREMENT voor een tabel `scores`
---
+-- --------------------------------------------------------
 ALTER TABLE `scores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
---
+-- --------------------------------------------------------
 -- AUTO_INCREMENT voor een tabel `vragen`
---
+-- --------------------------------------------------------
 ALTER TABLE `vragen`
   MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
---
+-- --------------------------------------------------------
 -- Beperkingen voor geëxporteerde tabellen
---
+-- --------------------------------------------------------
 
---
+-- --------------------------------------------------------
 -- Beperkingen voor tabel `antwoordopties`
---
+-- --------------------------------------------------------
 ALTER TABLE `antwoordopties`
   ADD CONSTRAINT `antwoordopties_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `vragen` (`question_id`) ON DELETE CASCADE;
 
---
+-- --------------------------------------------------------
 -- Beperkingen voor tabel `scores`
---
+-- --------------------------------------------------------
 ALTER TABLE `scores`
   ADD CONSTRAINT `scores_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `gebruikers` (`user_id`) ON DELETE SET NULL;
 
---
+-- --------------------------------------------------------
 -- Beperkingen voor tabel `vragen`
---
+-- --------------------------------------------------------
 ALTER TABLE `vragen`
   ADD CONSTRAINT `vragen_ibfk_1` FOREIGN KEY (`level_id`) REFERENCES `levels` (`level_id`) ON DELETE CASCADE;
 COMMIT;
