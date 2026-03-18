@@ -17,7 +17,7 @@ if (!$user) { session_destroy(); header('Location: login.html'); exit(); }
 $xp       = (int)$user['xp'];
 $naam     = htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8');
 $level    = (int)$user['level'];
-$stars    = min(5, $level - 1);
+$stars    = $level;
 $progress = ($xp % 50) * 2;
 
 $r_stmt = $pdo->prepare('SELECT COUNT(*) FROM scores WHERE user_id = ?');
