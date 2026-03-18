@@ -46,6 +46,10 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
     </nav>
     <div class="page">
         <div class="card">
+            <button onclick="document.getElementById('niveau-modal').style.display='flex'"
+                    class="btn-change-level" style="position:absolute; top:20px; right:20px; background:#a78bfa; color:#2e1065; border:none; padding:10px 16px; border-radius:50px; font-weight:bold; cursor:pointer; font-family:inherit; font-size:0.9em; box-shadow:0 3px 0 #6d28d9; transition:all 0.1s;">
+                📊 Niveau
+            </button>
             <span class="emoji-big">🦊</span>
             <h2 class="text-center">Mijn profiel</h2>
             <p class="text-center" style="font-size:1.2em; font-weight:bold; color:#6d28d9;"><?= $naam ?></p>
@@ -74,12 +78,18 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
             </div>
 
             <hr class="divider">
-            <a href="../php/exercise.php" class="btn btn-yellow">🎮 Oefenen!</a>
+            <a class="btn btn-yellow">🎮 Niveaus</a>
             <a href="../php/logout.php" class="btn btn-pink mt">🚪 Uitloggen</a>
 
             <?php if (isset($_GET['fout'])): ?>
                 <div class="feedback wrong" style="font-size:1em; width:100%; margin-top:14px;">
                     ⚠️ <?= htmlspecialchars($_GET['fout'], ENT_QUOTES, 'UTF-8') ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_GET['succes'])): ?>
+                <div class="feedback good" style="font-size:1em; width:100%; margin-top:14px;">
+                    ✅ <?= htmlspecialchars($_GET['succes'], ENT_QUOTES, 'UTF-8') ?>
                 </div>
             <?php endif; ?>
 
@@ -92,7 +102,37 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
         </div>
     </div>
 
-    <!-- Modal: wachtwoord bevestigen -->
+    <!-- Hier kan je je niveau wijzigen -->
+    <div id="niveau-modal" style="display:none; position:fixed; inset:0; z-index:999;
+         background:rgba(0,0,0,0.5); align-items:center; justify-content:center; padding:16px;">
+        <div style="background:white; border-radius:24px; padding:32px; max-width:450px; width:100%;
+                    border:3px solid #a78bfa; box-shadow:0 8px 40px rgba(0,0,0,0.2);">
+            <span style="font-size:2.5em; display:block; text-align:center; margin-bottom:8px;"></span>
+            <h2 style="text-align:center; color:#6d28d9; margin-bottom:8px;">Niveau wijzigen</h2>
+            <p style="text-align:center; color:#555; margin-bottom:20px;">
+                Kies een nieuw niveau om mee te beginnen (je huidige niveau: <strong><?= $level ?></strong>)
+            </p>
+            <form action="../php/change_level.php" method="post">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <label style="display:flex; align-items:center; cursor:pointer; padding:12px; border:2px solid #ede9fe; border-radius:12px; transition:all 0.2s;">
+                            <input type="radio" name="nieuw_level" value="<?= $i ?>" <?= ($i === $level) ? 'checked' : '' ?>
+                                   style="cursor:pointer; margin-right:8px;">
+                            <span style="font-weight:bold; color:#6d28d9;">Level <?= $i ?></span>
+                        </label>
+                    <?php endfor; ?>
+                </div>
+                <button type="submit" class="btn btn-purple" style="margin-top:0;">
+                    ✅ Niveau wijzigen
+                </button>
+            </form>
+            <button onclick="document.getElementById('niveau-modal').style.display='none'"
+                    class="btn-back" style="margin-top:12px;">
+                ✖ Annuleren
+            </button>
+        </div>
+    </div>
+
     <div id="verwijder-modal" style="display:none; position:fixed; inset:0; z-index:999;
          background:rgba(0,0,0,0.5); align-items:center; justify-content:center; padding:16px;">
         <div style="background:white; border-radius:24px; padding:32px; max-width:400px; width:100%;
