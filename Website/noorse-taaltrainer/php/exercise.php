@@ -160,7 +160,7 @@ $accuracy = $answered_total > 0
 
 <nav class="topbar">
     <a class="topbar-logo">Taaltrainer</a>
-    <a href="../pages/dashboard.php" class="topbar-btn">🏠 Dashboard</a>
+    <a href="../pages/dashboard.php" class="topbar-btn">🏠 Home</a>
 </nav>
 
 <div class="page">
