@@ -251,7 +251,7 @@ CREATE TABLE `gebruikers` (
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `wachtwoord` varchar(255) NOT NULL,
-  `datum_registratie` date NOT NULL DEFAULT curdate(),
+  `datum_registratie` date NOT NULL DEFAULT (curdate()),
   `total_score` int(11) NOT NULL DEFAULT 0,
   `xp` int(11) NOT NULL DEFAULT 0,
   `level` int(11) NOT NULL DEFAULT 1
