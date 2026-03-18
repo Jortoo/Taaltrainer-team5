@@ -78,7 +78,7 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
             </div>
 
             <hr class="divider">
-            <a href="exercises.php" class="btn btn-yellow">🎮 Verder gaan</a>
+            <a href="../php/exercise.php" class="btn btn-yellow">🎮 Verder gaan</a>
             <a href="../php/logout.php" class="btn btn-pink mt">🚪 Uitloggen</a>
 
             <?php if (isset($_GET['fout'])): ?>
