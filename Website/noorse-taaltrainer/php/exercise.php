@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$user_id = (int)$_SESSION['user_id'];
+$user_id = (int)$_SESSION['user_id'];; // haal_user_id_van_gebruiker($user_id);
 $level   = haal_level_van_gebruiker($user_id);
 $total   = geef_totaal_vragen_van_level($level);
 
