@@ -2,14 +2,35 @@
 session_start();
 require_once 'functions.php';
 
-$total = geef_totaal_vragen();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: ../pages/login.html');
+    exit();
+}
 
-// Initialize session
-if (!isset($_SESSION['q_index']))    $_SESSION['q_index']    = 0;
-if (!isset($_SESSION['q_score']))    $_SESSION['q_score']    = 0;
-if (!isset($_SESSION['q_wrong']))    $_SESSION['q_wrong']    = [];
-if (!isset($_SESSION['q_phase']))    $_SESSION['q_phase']    = 'main';
-if (!isset($_SESSION['q_answered'])) $_SESSION['q_answered'] = 0;
+$user_id = (int)$_SESSION['user_id'];
+$level   = haal_level_van_gebruiker($user_id);
+$total   = geef_totaal_vragen_van_level($level);
+
+if (
+    !isset($_SESSION['q_level']) ||
+    $_SESSION['q_level'] !== $level ||
+    !isset($_SESSION['q_vragen']) ||
+    !is_array($_SESSION['q_vragen'])
+) {
+    $vragen = haal_vragen_van_level($level);
+
+    if (empty($vragen)) {
+        die("Geen vragen gevonden voor level " . $level);
+    }
+
+    $_SESSION['q_level']    = $level;
+    $_SESSION['q_vragen']   = $vragen;
+    $_SESSION['q_index']    = 0;
+    $_SESSION['q_score']    = 0;
+    $_SESSION['q_wrong']    = [];
+    $_SESSION['q_phase']    = 'main';
+    $_SESSION['q_answered'] = 0;
+}
 
 $feedback = '';
 $selected = '';
@@ -19,7 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['volgende'])) {
         $_SESSION['q_index']++;
-        $fase_totaal = ($_SESSION['q_phase'] === 'main') ? $total : count($_SESSION['q_wrong']);
+
+        $fase_totaal = ($_SESSION['q_phase'] === 'main')
+            ? count($_SESSION['q_vragen'] ?? [])
+            : count($_SESSION['q_wrong'] ?? []);
 
         if ((int)$_SESSION['q_index'] >= $fase_totaal) {
             if ($_SESSION['q_phase'] === 'main' && !empty($_SESSION['q_wrong'])) {
@@ -30,13 +54,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $score = min((int)$_SESSION['q_score'], $total);
                 $uid   = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
+
                 sla_score_op($uid, $score, $total);
+
+                if ($uid !== null) {
+                    update_level_na_ronde($uid, $score, $total);
+                }
 
                 $_SESSION['q_index']    = 0;
                 $_SESSION['q_score']    = 0;
                 $_SESSION['q_wrong']    = [];
                 $_SESSION['q_phase']    = 'main';
                 $_SESSION['q_answered'] = 0;
+                unset($_SESSION['q_vragen'], $_SESSION['q_level']);
 
                 header('Location: ../pages/score.html?score=' . $score . '&total=' . $total);
                 exit();
@@ -48,14 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['answer'])) {
-        $answer   = trim($_POST['answer']); 
+        $answer   = trim($_POST['answer']);
         $selected = $answer;
 
         $vraag_idx = ($_SESSION['q_phase'] === 'retry')
-            ? (int)$_SESSION['q_wrong'][(int)$_SESSION['q_index']]
+            ? (int)($_SESSION['q_wrong'][(int)$_SESSION['q_index']] ?? 0)
             : (int)$_SESSION['q_index'];
 
-        $vd = haal_vraag_op($vraag_idx);
+        $vd = $_SESSION['q_vragen'][$vraag_idx] ?? null;
+
         if ($vd === null) {
             header('Location: ' . $_SERVER['PHP_SELF']);
             exit();
@@ -76,31 +107,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$index    = (int)$_SESSION['q_index'];
-$is_retry = ($_SESSION['q_phase'] === 'retry');
+$index    = (int)($_SESSION['q_index'] ?? 0);
+$is_retry = (($_SESSION['q_phase'] ?? 'main') === 'retry');
 
-$fase_totaal = $is_retry ? count($_SESSION['q_wrong']) : $total;
-$vraag_idx   = $is_retry ? (int)($_SESSION['q_wrong'][$index] ?? 0) : $index;
-$vraagdata   = haal_vraag_op($vraag_idx);
+$fase_totaal = $is_retry
+    ? count($_SESSION['q_wrong'] ?? [])
+    : count($_SESSION['q_vragen'] ?? []);
+
+$vraag_idx = $is_retry
+    ? (int)($_SESSION['q_wrong'][$index] ?? 0)
+    : $index;
+
+$vraagdata = $_SESSION['q_vragen'][$vraag_idx] ?? null;
 
 if ($vraagdata === null) {
-    $score = min((int)$_SESSION['q_score'], $total);
+    $score = min((int)($_SESSION['q_score'] ?? 0), $total);
     $uid   = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null;
+
     sla_score_op($uid, $score, $total);
+
+    if ($uid !== null) {
+        update_level_na_ronde($uid, $score, $total);
+    }
+
     $_SESSION['q_index']    = 0;
     $_SESSION['q_score']    = 0;
     $_SESSION['q_wrong']    = [];
     $_SESSION['q_phase']    = 'main';
     $_SESSION['q_answered'] = 0;
+    unset($_SESSION['q_vragen'], $_SESSION['q_level']);
+
     header('Location: ../pages/score.html?score=' . $score . '&total=' . $total);
     exit();
 }
 
 $fill_pct = (int)round((1 - $index / max($fase_totaal, 1)) * 100);
 
-$answered_total = (int)$_SESSION['q_answered'];
+$answered_total = (int)($_SESSION['q_answered'] ?? 0);
 $accuracy = $answered_total > 0
-    ? min(100, (int)round($_SESSION['q_score'] / $answered_total * 100))
+    ? min(100, (int)round(($_SESSION['q_score'] ?? 0) / $answered_total * 100))
     : 0;
 ?>
 <!DOCTYPE html>
@@ -123,14 +168,14 @@ $accuracy = $answered_total > 0
 
         <?php if ($is_retry): ?>
         <div style="background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:8px 14px; margin-bottom:10px; font-size:0.9em; color:#856404;">
-            🔁 <strong>Herhaling!</strong> Je had <?php echo count($_SESSION['q_wrong']); ?> fout — oefen ze nog een keer.
+            🔁 <strong>Herhaling!</strong> Je had <?php echo count($_SESSION['q_wrong'] ?? []); ?> fout — oefen ze nog een keer.
         </div>
         <?php endif; ?>
 
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
             <span style="font-weight:bold; color:#5c3d99;">
                 <?php echo $is_retry ? '🔁' : '⭐'; ?>
-                Vraag <?php echo $index + 1; ?> van <?php echo $fase_totaal; ?>
+                Level <?php echo (int)$level; ?> • Vraag <?php echo $index + 1; ?> van <?php echo $fase_totaal; ?>
             </span>
             <span style="color:#888; font-size:0.9em;"><?php echo $accuracy; ?>% goed</span>
         </div>
