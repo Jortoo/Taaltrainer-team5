@@ -12,19 +12,27 @@ $email          = trim($_POST['email']    ?? '');
 $wachtwoord     = $_POST['password']      ?? '';
 
 if ($gebruikersnaam === '' || $email === '' || $wachtwoord === '') {
-    header('Location: ../pages/register.html?fout=' . urlencode('Vul alle velden in.'));
+    header('Location: ../pages/register.html?fout=' . urlencode('Vul alle velden in.')
+    . '&username=' . urlencode($gebruikersnaam) 
+    . '&email=' . urlencode($email));
     exit();
 }
 if (strlen($gebruikersnaam) < 3) {
-    header('Location: ../pages/register.html?fout=' . urlencode('Gebruikersnaam moet minstens 3 tekens zijn.'));
+    header('Location: ../pages/register.html?fout=' . urlencode('Gebruikersnaam moet minstens 3 tekens zijn.')
+    . '&username=' . urlencode($gebruikersnaam) 
+    . '&email=' . urlencode($email));
     exit();
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    header('Location: ../pages/register.html?fout=' . urlencode('Vul een geldig e-mailadres in.'));
+    header('Location: ../pages/register.html?fout=' . urlencode('Vul een geldig e-mailadres in.')
+    . '&username=' . urlencode($gebruikersnaam) 
+    . '&email=' . urlencode($email));
     exit();
 }
 if (strlen($wachtwoord) < 6) {
-    header('Location: ../pages/register.html?fout=' . urlencode('Wachtwoord moet minstens 6 tekens zijn.'));
+    header('Location: ../pages/register.html?fout=' . urlencode('Wachtwoord moet minstens 6 tekens zijn.')
+    . '&username=' . urlencode($gebruikersnaam) 
+    . '&email=' . urlencode($email));
     exit();
 }
 
@@ -36,7 +44,9 @@ try {
     );
     $check->execute([$gebruikersnaam, $email]);
     if ($check->fetch()) {
-        header('Location: ../pages/register.html?fout=' . urlencode('Gebruikersnaam of e-mail is al in gebruik.'));
+        header('Location: ../pages/register.html?fout=' . urlencode('Gebruikersnaam of e-mail is al in gebruik.')
+        . '&username=' . urlencode($gebruikersnaam) 
+        . '&email=' . urlencode($email));
         exit();
     }
 
@@ -53,6 +63,8 @@ try {
     exit();
 
 } catch (PDOException $e) {
-    header('Location: ../pages/register.html?fout=' . urlencode('Databasefout — probeer het later opnieuw.'));
+    header('Location: ../pages/register.html?fout=' . urlencode('Databasefout — probeer het later opnieuw.') 
+    . '&username=' . urlencode($gebruikersnaam) 
+    . '&email=' . urlencode($email));
     exit();
 }

@@ -23,12 +23,20 @@
                 <button type="submit" class="btn btn-green mt">🚀 Inloggen</button>
             </form>
             <script>
-                var fout = new URLSearchParams(window.location.search).get('fout');
+                var params = new URLSearchParams(window.location.search);
+
+                var fout = params.get('fout');
                 if (fout) {
                     var el = document.getElementById('fout-msg');
                     el.textContent = '⚠️ ' + fout;
                     el.style.display = 'block';
                 }
+                var username = params.get('username');
+                if (username) {
+                    var el = document.getElementById('username');
+                    el.value = username;
+                }
+
             </script>
             <hr class="divider">
             <p class="text-center">Nog geen account? <a href="register.html">Maak er gratis een aan!</a></p>

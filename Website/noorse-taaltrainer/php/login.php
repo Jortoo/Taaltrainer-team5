@@ -32,10 +32,10 @@ try {
         exit();
     }
 
-    header('Location: ../pages/login.html?fout=' . urlencode('Gebruikersnaam of wachtwoord klopt niet.'));
+    header('Location: ../pages/login.html?fout=' . urlencode('Gebruikersnaam of wachtwoord klopt niet.') . '&username=' . urlencode($gebruikersnaam));
     exit();
 
 } catch (PDOException $e) {
-    header('Location: ../pages/login.html?fout=' . urlencode('Databasefout — probeer het later opnieuw.'));
+    header('Location: ../pages/login.html?fout=' . urlencode('Databasefout — probeer het later opnieuw.') . '&username=' . urlencode($gebruikersnaam));
     exit();
 }
