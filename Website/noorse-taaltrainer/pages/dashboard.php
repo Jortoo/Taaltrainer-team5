@@ -9,7 +9,7 @@ require_once __DIR__ . '/../php/db.php';
 $user_id = (int)$_SESSION['user_id'];
 $pdo     = get_db();
 
-$stmt = $pdo->prepare('SELECT username, xp, level, total_score FROM gebruikers WHERE user_id = ? LIMIT 1');
+$stmt = $pdo->prepare('SELECT username, xp, level, total_score, max_unlocked_level FROM gebruikers WHERE user_id = ? LIMIT 1');
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 if (!$user) { session_destroy(); header('Location: login.html'); exit(); }
@@ -17,6 +17,7 @@ if (!$user) { session_destroy(); header('Location: login.html'); exit(); }
 $xp       = (int)$user['xp'];
 $naam     = htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8');
 $level    = (int)$user['level'];
+$max_unlocked = (int)$user['max_unlocked_level'];
 $stars    = $level; // Level 1 = 1 ster, Level 2 = 2 sterren, etc.
 $progress = ($xp % 50) * 2;
 

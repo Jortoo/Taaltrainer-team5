@@ -254,16 +254,17 @@ CREATE TABLE `gebruikers` (
   `datum_registratie` date NOT NULL DEFAULT (curdate()),
   `total_score` int(11) NOT NULL DEFAULT 0,
   `xp` int(11) NOT NULL DEFAULT 0,
-  `level` int(11) NOT NULL DEFAULT 1
+  `level` int(11) NOT NULL DEFAULT 1,
+  `max_unlocked_level` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 -- Gegevens worden geëxporteerd voor tabel `gebruikers`
 -- --------------------------------------------------------
 
-INSERT INTO `gebruikers` (`user_id`, `username`, `email`, `wachtwoord`, `datum_registratie`, `total_score`, `xp`, `level`) VALUES
-(2, '123test', '123test@gmail.com', '$2y$10$fkns7q4lCpagJhM9kPtaLekeqilF5baQkBBR6XOtHc2n0asRE9Umm', '2026-03-16', 5, 50, 2),
-(3, 'test221', 'test221@gmail.com', '$2y$10$NmkiHvCah8eiYS1GkSkY/eGIoibJJuXLUrt7T0uQCE5a1chRTOjDy', '2026-03-17', 0, 380, 4);
+INSERT INTO `gebruikers` (`user_id`, `username`, `email`, `wachtwoord`, `datum_registratie`, `total_score`, `xp`, `level`, `max_unlocked_level`) VALUES
+(2, '123test', '123test@gmail.com', '$2y$10$fkns7q4lCpagJhM9kPtaLekeqilF5baQkBBR6XOtHc2n0asRE9Umm', '2026-03-16', 5, 50, 2, 2),
+(3, 'test221', 'test221@gmail.com', '$2y$10$NmkiHvCah8eiYS1GkSkY/eGIoibJJuXLUrt7T0uQCE5a1chRTOjDy', '2026-03-17', 0, 380, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -482,6 +483,13 @@ ALTER TABLE `scores`
 -- --------------------------------------------------------
 ALTER TABLE `vragen`
   ADD CONSTRAINT `vragen_ibfk_1` FOREIGN KEY (`level_id`) REFERENCES `levels` (`level_id`) ON DELETE CASCADE;
+
+-- --------------------------------------------------------
+-- Update bestaande gebruikers tabel met max_unlocked_level
+-- --------------------------------------------------------
+ALTER TABLE `gebruikers` ADD COLUMN `max_unlocked_level` int(11) NOT NULL DEFAULT 1;
+UPDATE `gebruikers` SET `max_unlocked_level` = `level` WHERE `max_unlocked_level` = 1;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

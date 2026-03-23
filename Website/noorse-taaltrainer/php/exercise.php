@@ -57,7 +57,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 sla_score_op($uid, $score, $total);
 
+                // Bereken XP voordat update_level_na_ronde wordt aangeroepen
+                $earned_xp = 0;
                 if ($uid !== null) {
+                    $pdo = get_db();
+                    $stmt = $pdo->prepare('SELECT level FROM gebruikers WHERE user_id = ? LIMIT 1');
+                    $stmt->execute([$uid]);
+                    $user = $stmt->fetch();
+                    if ($user) {
+                        $level = (int)$user['level'];
+                        $xp_per_question = [1 => 5, 2 => 7.5, 3 => 10, 4 => 12.5, 5 => 15];
+                        $xp_reward = $xp_per_question[$level] ?? 5;
+                        $earned_xp = (int)($score * $xp_reward);
+                    }
                     update_level_na_ronde($uid, $score, $total);
                 }
 
@@ -68,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['q_answered'] = 0;
                 unset($_SESSION['q_vragen'], $_SESSION['q_level']);
 
-                header('Location: ../pages/score.html?score=' . $score . '&total=' . $total);
+                header('Location: ../pages/score.html?score=' . $score . '&total=' . $total . '&xp=' . $earned_xp);
                 exit();
             }
         }
@@ -126,7 +138,19 @@ if ($vraagdata === null) {
 
     sla_score_op($uid, $score, $total);
 
+    // Bereken XP voordat update_level_na_ronde wordt aangeroepen
+    $earned_xp = 0;
     if ($uid !== null) {
+        $pdo = get_db();
+        $stmt = $pdo->prepare('SELECT level FROM gebruikers WHERE user_id = ? LIMIT 1');
+        $stmt->execute([$uid]);
+        $user = $stmt->fetch();
+        if ($user) {
+            $level = (int)$user['level'];
+            $xp_per_question = [1 => 5, 2 => 7.5, 3 => 10, 4 => 12.5, 5 => 15];
+            $xp_reward = $xp_per_question[$level] ?? 5;
+            $earned_xp = (int)($score * $xp_reward);
+        }
         update_level_na_ronde($uid, $score, $total);
     }
 
@@ -137,7 +161,7 @@ if ($vraagdata === null) {
     $_SESSION['q_answered'] = 0;
     unset($_SESSION['q_vragen'], $_SESSION['q_level']);
 
-    header('Location: ../pages/score.html?score=' . $score . '&total=' . $total);
+    header('Location: ../pages/score.html?score=' . $score . '&total=' . $total . '&xp=' . $earned_xp);
     exit();
 }
 
