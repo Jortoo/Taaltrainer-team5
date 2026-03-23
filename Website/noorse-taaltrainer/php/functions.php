@@ -1,4 +1,4 @@
-﻿﻿<?php
+﻿<?php
 require_once __DIR__ . '/db.php';
 
 function haal_level_van_gebruiker(int $user_id): int {
@@ -119,7 +119,7 @@ function update_level_na_ronde(int $user_id, int $score, int $totaal): void {
 
     $upd = $pdo->prepare('UPDATE gebruikers SET xp = ?, level = ? WHERE user_id = ?');
     $upd->execute([$xp, $level, $user_id]);
-}
+}  
 
 function toon_feedback(bool $isGoed, string $goedAntwoord = ''): string {
     if ($isGoed) {

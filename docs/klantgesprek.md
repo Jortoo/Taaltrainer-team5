@@ -33,7 +33,7 @@
 
     Spelletjes
 
-    Elk spelletje = 1 woord
+    Elk spelletje = woorden of zinnen
     Spelletjes zijn kort
     Soorten vragen:
 
