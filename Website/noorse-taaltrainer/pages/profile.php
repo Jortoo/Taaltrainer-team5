@@ -1,4 +1,4 @@
-﻿﻿﻿<?php
+﻿﻿﻿﻿﻿<?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.html');
@@ -9,6 +9,7 @@ require_once __DIR__ . '/../php/db.php';
 $user_id = (int)$_SESSION['user_id'];
 $pdo     = get_db();
 
+// Bereken de gebruikersgegevens
 $stmt = $pdo->prepare('SELECT username, xp, level, total_score, max_unlocked_level FROM gebruikers WHERE user_id = ? LIMIT 1');
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
@@ -32,6 +33,8 @@ $woorden = (int)$w_stmt->fetchColumn();
 $ster_html  = str_repeat('⭐', $stars) . str_repeat('☆', 5 - $stars);
 $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
 ?>
+
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -150,6 +153,7 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
         </div>
     </div>
 
+    <!-- Modal voor account verwijderen -->
     <div id="verwijder-modal" style="display:none; position:fixed; inset:0; z-index:999;
          background:rgba(0,0,0,0.5); align-items:center; justify-content:center; padding:16px;">
         <div style="background:white; border-radius:24px; padding:32px; max-width:400px; width:100%;
