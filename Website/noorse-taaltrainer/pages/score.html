@@ -49,13 +49,13 @@
         const p = new URLSearchParams(window.location.search);
         const score = parseInt(p.get('score')) || 0;
         const total = parseInt(p.get('total')) || 5;
+        const earnedXp = parseInt(p.get('xp')) || (score * 10); // Gebruik echte XP of fallback naar oude berekening
         const pct = Math.round((score / total) * 100);
-        const xp = score * 10;
 
         document.getElementById('score-display').textContent = score + ' / ' + total;
         document.getElementById('score-val').textContent = score;
         document.getElementById('pct-val').textContent = pct + '%';
-        document.getElementById('xp-val').textContent = '+' + xp;
+        document.getElementById('xp-val').textContent = '+' + earnedXp;
         document.getElementById('score-fill').style.width = (100 - pct) + '%';
 
         const stars = (pct >= 90 ? '⭐⭐⭐⭐⭐' : pct >= 70 ? '⭐⭐⭐⭐☆' : pct >= 50 ? '⭐⭐⭐☆☆' : pct >= 30 ? '⭐⭐☆☆☆' : '⭐☆☆☆☆');

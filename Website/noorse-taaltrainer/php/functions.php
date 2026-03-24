@@ -1,4 +1,4 @@
-﻿<?php
+﻿﻿<?php
 require_once __DIR__ . '/db.php';
 
 function haal_level_van_gebruiker(int $user_id): int {
@@ -111,15 +111,14 @@ function update_level_na_ronde(int $user_id, int $score, int $totaal): void {
     $xp = (int)$user['xp'];
     $level = (int)$user['level'];
 
-    if ($score >= $totaal && $level < 5) {
-        $level++;
-    }
+    // Geef XP gebaseerd op niveau en score
+    $xp_per_question = [1 => 5, 2 => 7.5, 3 => 10, 4 => 12.5, 5 => 15];
+    $xp_reward = $xp_per_question[$level] ?? 5;
+    $xp += (int)($score * $xp_reward);
 
-    $xp += ($score * 10);
-
-    $upd = $pdo->prepare('UPDATE gebruikers SET xp = ?, level = ? WHERE user_id = ?');
-    $upd->execute([$xp, $level, $user_id]);
-}  
+    $upd = $pdo->prepare('UPDATE gebruikers SET xp = ? WHERE user_id = ?');
+    $upd->execute([$xp, $user_id]);
+}
 
 function toon_feedback(bool $isGoed, string $goedAntwoord = ''): string {
     if ($isGoed) {

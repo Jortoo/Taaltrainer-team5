@@ -21,13 +21,35 @@ if ($nieuw_level === null || $nieuw_level < 1 || $nieuw_level > 5) {
 try {
     $pdo = get_db();
     
-    // Update het niveau in de database
-    // Zet ook XP op 0 zodat je opnieuw kunt groeien naar het volgende nivel
-    $stmt = $pdo->prepare('UPDATE gebruikers SET level = ?, xp = 0 WHERE user_id = ?');
-    $stmt->execute([$nieuw_level, $user_id]);
+    // Haal huidige XP, level en max_unlocked_level van gebruiker op
+    $stmt = $pdo->prepare('SELECT xp, level, max_unlocked_level FROM gebruikers WHERE user_id = ? LIMIT 1');
+    $stmt->execute([$user_id]);
+    $user = $stmt->fetch();
+    $current_xp = (int)$user['xp'];
+    $current_level = (int)$user['level'];
+    $current_max_unlocked = (int)$user['max_unlocked_level'];
+    
+    // Definieer kosten per niveau (alleen voor nog niet ontgrendelde levels)
+    $level_costs = [1 => 0, 2 => 100, 3 => 200, 4 => 300, 5 => 400];
+    $is_unlocked = ($nieuw_level <= $current_max_unlocked);
+    $cost = (!$is_unlocked) ? $level_costs[$nieuw_level] : 0;
+    
+    // Controleer of gebruiker genoeg XP heeft (alleen voor nog niet ontgrendelde levels)
+    if (!$is_unlocked && $current_xp < $cost) {
+        header('Location: ../pages/profile.php?fout=Niet+genoeg+XP+voor+dit+niveau');
+        exit();
+    }
+    
+    // Trek XP af alleen als het een nieuw niveau is dat ontgrendeld wordt
+    $new_xp = (!$is_unlocked) ? $current_xp - $cost : $current_xp;
+    $new_max_unlocked = max($current_max_unlocked, $nieuw_level);
+    
+    $stmt = $pdo->prepare('UPDATE gebruikers SET level = ?, xp = ?, max_unlocked_level = ? WHERE user_id = ?');
+    $stmt->execute([$nieuw_level, $new_xp, $new_max_unlocked, $user_id]);
     
     // Redirect terug naar profiel met succes
-    header('Location: ../pages/profile.php?succes=Niveau+gewijzigd!');
+    $message = (!$is_unlocked) ? 'Niveau+ontgrendeld!+' . $cost . '+XP+uitgegeven.' : 'Niveau+gewijzigd!';
+    header('Location: ../pages/profile.php?succes=' . $message);
     exit();
 } catch (PDOException $e) {
     error_log('Database error: ' . $e->getMessage());
