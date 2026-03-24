@@ -1,4 +1,4 @@
-﻿﻿<?php
+﻿﻿﻿<?php
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.html');
@@ -9,7 +9,7 @@ require_once __DIR__ . '/../php/db.php';
 $user_id = (int)$_SESSION['user_id'];
 $pdo     = get_db();
 
-$stmt = $pdo->prepare('SELECT username, xp, level, total_score FROM gebruikers WHERE user_id = ? LIMIT 1');
+$stmt = $pdo->prepare('SELECT username, xp, level, total_score, max_unlocked_level FROM gebruikers WHERE user_id = ? LIMIT 1');
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 if (!$user) { session_destroy(); header('Location: login.html'); exit(); }
@@ -17,6 +17,7 @@ if (!$user) { session_destroy(); header('Location: login.html'); exit(); }
 $xp       = (int)$user['xp'];
 $naam     = htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8');
 $level    = (int)$user['level'];
+$max_unlocked = (int)$user['max_unlocked_level'];
 $stars    = $level;
 $progress = ($xp % 50) * 2;
 
@@ -110,15 +111,31 @@ $level_label = ($stars >= 5) ? 'Koning 👑' : 'Level ' . $level;
             <span style="font-size:2.5em; display:block; text-align:center; margin-bottom:8px;"></span>
             <h2 style="text-align:center; color:#6d28d9; margin-bottom:8px;">Niveau wijzigen</h2>
             <p style="text-align:center; color:#555; margin-bottom:20px;">
-                Kies een nieuw niveau om mee te beginnen (je huidige niveau: <strong><?= $level ?></strong>)
+                Kies een nieuw niveau om te unlocken (je huidige niveau: <strong><?= $level ?></strong>)<br>
+                <small style="color:#888;">Je hebt <strong><?= $xp ?> ⚡ XP</strong> - geef XP uit om een hoger niveau te ontgrendelen</small>
             </p>
             <form action="../php/change_level.php" method="post">
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:20px;">
-                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                        <label style="display:flex; align-items:center; cursor:pointer; padding:12px; border:2px solid #ede9fe; border-radius:12px; transition:all 0.2s;">
-                            <input type="radio" name="nieuw_level" value="<?= $i ?>" <?= ($i === $level) ? 'checked' : '' ?>
+                    <?php 
+                    $level_costs = [1 => 0, 2 => 100, 3 => 200, 4 => 300, 5 => 400];
+                    for ($i = 1; $i <= 5; $i++): 
+                        $is_unlocked = ($i <= $max_unlocked);
+                        $cost = (!$is_unlocked) ? $level_costs[$i] : 0;
+                        $can_afford = ($xp >= $cost);
+                        $disabled = (!$is_unlocked && !$can_afford) ? 'disabled' : '';
+                        $opacity = (!$is_unlocked && !$can_afford) ? 'opacity:0.5;' : '';
+                    ?>
+                        <label style="display:flex; align-items:center; cursor:pointer; padding:12px; border:2px solid #ede9fe; border-radius:12px; transition:all 0.2s; <?= $opacity ?>" <?= $disabled ?>>
+                            <input type="radio" name="nieuw_level" value="<?= $i ?>" <?= ($i === $level) ? 'checked' : '' ?> <?= $disabled ?>
                                    style="cursor:pointer; margin-right:8px;">
-                            <span style="font-weight:bold; color:#6d28d9;">Level <?= $i ?></span>
+                            <div style="flex:1;">
+                                <span style="font-weight:bold; color:#6d28d9;">Level <?= $i ?></span>
+                                <?php if (!$is_unlocked): ?>
+                                    <br><small style="color:#666; font-size:0.8em;">Kost <?= $cost ?> ⚡ XP </small>
+                                <?php else: ?>
+                                    <br><small style="color:#666; font-size:0.8em;">Ontgrendeld</small>
+                                <?php endif; ?>
+                            </div>
                         </label>
                     <?php endfor; ?>
                 </div>
